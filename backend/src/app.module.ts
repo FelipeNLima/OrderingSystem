@@ -1,13 +1,11 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-// MODULE
-import { UserModule } from './user/user.module';
+import { UserModule } from './Users/http-server/user.module';
+import { PrismaService } from './services/prisma.service';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), HttpModule, UserModule],
-  providers: [],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), UserModule],
+  providers: [PrismaService],
   exports: [],
   controllers: [],
 })
