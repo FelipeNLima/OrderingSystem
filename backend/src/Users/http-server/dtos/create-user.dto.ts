@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDTO {
   @IsOptional()
@@ -14,6 +14,6 @@ export class CreateUserDTO {
   cpf: string;
 
   @IsOptional()
-  @IsString()
-  role: string;
+  @IsBoolean()
+  isAdmin: boolean;
 }

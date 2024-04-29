@@ -9,8 +9,7 @@ export class UserDataAccessAdapter implements UserDataAccessPort {
 
   async save(user: UserModel): Promise<UserModel> {
     try {
-      const newUser = await this.prisma.user.create({ data: user });
-      return newUser;
+      return await this.prisma.user.create({ data: user });
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
       throw new Error(message);
@@ -19,8 +18,7 @@ export class UserDataAccessAdapter implements UserDataAccessPort {
 
   async listAll(): Promise<UserModel[]> {
     try {
-      const newUser = await this.prisma.user.findMany();
-      return newUser;
+      return await this.prisma.user.findMany();
     } catch (error) {
       throw new Error(error?.meta?.details);
     }

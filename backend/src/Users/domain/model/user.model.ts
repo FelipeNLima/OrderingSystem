@@ -1,11 +1,8 @@
-import { Role } from 'src/enums/role';
-
 export class UserModel {
-  id: number;
-  email?: string;
-  name?: string;
-  cpf?: string;
-  role: Role;
+  email: string | null;
+  name: string | null;
+  cpf: string | null;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
