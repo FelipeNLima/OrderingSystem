@@ -44,3 +44,11 @@ $ http://localhost:3000/api
 # To generate documentation, run the command
 $ yarn doc
 ```
+
+## Health Check
+
+```bash
+# run the command
+$ yarn start:dev
+$ http://localhost:3000/health
+```
