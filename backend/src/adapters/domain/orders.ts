@@ -1,6 +1,15 @@
+import { OrderItens } from './orderItens';
+import { OrdersTracking } from './ordersTracking';
+import { Payments } from './payments';
+
 export interface Orders {
-  id: number;
+  id?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  salesOrderID: string;
   amount: number;
   customerID: number;
-  paymentID: number;
+  orderItens: OrderItens[];
+  payments: Payments[];
+  orderTracking: OrdersTracking[];
 }

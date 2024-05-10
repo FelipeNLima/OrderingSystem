@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsNumber,
   IsOptional,
+  IsString,
 } from 'class-validator';
 import { Status } from 'src/enums/status';
 
@@ -19,6 +20,10 @@ export class OrdersTrackingDto {
   @IsOptional()
   @IsDate()
   updatedAt: Date;
+
+  @IsOptional()
+  @IsString()
+  salesOrderID: string;
 
   @IsDefined()
   @IsEnum(Status)

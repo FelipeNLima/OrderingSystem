@@ -38,8 +38,8 @@ export class OrdersController {
   @Patch()
   async update(@Body() dto: OrdersDto) {
     try {
-      const products = await this.ordersService.update(dto);
-      return products;
+      const order = await this.ordersService.update(dto);
+      return order;
     } catch (err) {
       throw new ConflictException('Order could not be updated');
     }

@@ -1,8 +1,8 @@
 export interface Payments {
-  id: number;
-  createdApproved: Date;
-  paymentMethodID: string;
-  paymentTypeID: string;
+  salesOrderID: string;
+  createdApproved: string;
+  paymentMethod: string;
+  paymentType: string;
   status: string;
   statusDetail: string;
   externalReference: string;
@@ -10,4 +10,6 @@ export interface Payments {
   qrCode: string;
   qrCodeBase64: string;
   ticketUrl: string;
+  id?: number;
+  orderID?: number;
 }

@@ -6,7 +6,6 @@ import {
   Get,
   Param,
   Patch,
-  Post,
 } from '@nestjs/common';
 import { OrdersTrackingService } from 'src/adapters/applications/services/ordersTracking.service';
 import { OrdersTrackingDto } from './dtos/order-tracking.dto';
@@ -22,16 +21,6 @@ export class OrdersTrackingController {
       return tracking;
     } catch (err) {
       throw new ConflictException('Order Tracking could not be list');
-    }
-  }
-
-  @Post()
-  async save(@Body() dto: OrdersTrackingDto) {
-    try {
-      const tracking = await this.ordersTrackingService.create(dto);
-      return tracking;
-    } catch (err) {
-      throw new ConflictException('Order Tracking could not be created');
     }
   }
 

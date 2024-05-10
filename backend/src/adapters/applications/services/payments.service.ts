@@ -9,12 +9,4 @@ export class PaymentsService {
   async getById(id: number): Promise<Payments | null> {
     return this.paymentsRepository.getPaymentsById(id);
   }
-
-  async create(categories: Payments): Promise<Payments> {
-    return this.paymentsRepository.savePayments(categories);
-  }
-
-  async update(payments: Payments): Promise<Payments> {
-    return this.paymentsRepository.updatePayments(payments);
-  }
 }

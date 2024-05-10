@@ -3,5 +3,6 @@ export interface OrderItens {
   name: string;
   quantity: number;
   priceUnit: number;
-  parent_id: number;
+  parentID: number;
+  productID: number;
 }

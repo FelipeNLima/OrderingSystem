@@ -12,10 +12,6 @@ export class OrdersTrackingService {
     return this.ordersTrackingRepository.getTrackingById(id);
   }
 
-  async create(categories: OrdersTracking): Promise<OrdersTracking> {
-    return this.ordersTrackingRepository.saveTracking(categories);
-  }
-
   async update(tracking: OrdersTracking): Promise<OrdersTracking> {
     return this.ordersTrackingRepository.updateTracking(tracking);
   }

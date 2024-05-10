@@ -28,9 +28,10 @@ model Payments {
   id                Int      @id @default(autoincrement())
   createdAt         DateTime @default(now())
   updatedAt         DateTime @default(now())
-  createdApproved   DateTime
-  paymentMethodID   String
-  paymentTypeID     String
+  salesOrderID      String
+  createdApproved   String
+  paymentMethod     String
+  paymentType       String
   status            String
   statusDetail      String
   externalReference String   @unique
@@ -38,7 +39,8 @@ model Payments {
   qrCode            String   @unique
   qrCodeBase64      String   @unique
   ticketUrl         String   @unique
-  Order             Orders[]
+  order             Orders   @relation(fields: [orderID], references: [id])
+  orderID           Int
 }
 
 model Orders {
@@ -46,12 +48,12 @@ model Orders {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @default(now())
   amount        Float
+  salesOrderID  String
   customer      Customer        @relation(fields: [customerID], references: [id])
   customerID    Int
-  payment       Payments        @relation(fields: [paymentID], references: [id])
-  paymentID     Int
-  OrderTracking OrderTracking[]
-  OrderItens    OrderItens[]
+  orderItens    OrderItens[]
+  orderTracking OrderTracking[]
+  payments      Payments[]
 }
 
 model OrderItens {
@@ -61,8 +63,8 @@ model OrderItens {
   name      String
   quantity  Int
   priceUnit Float
-  order     Orders   @relation(fields: [orderID], references: [id])
-  orderID   Int
+  order     Orders   @relation(fields: [parentID], references: [id])
+  parentID  Int
   products  Products @relation(fields: [productID], references: [id])
   productID Int
 }
@@ -87,10 +89,11 @@ model Categories {
 }
 
 model OrderTracking {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  status    String   @default("CREATED")
-  order     Orders   @relation(fields: [orderID], references: [id])
-  orderID   Int
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  salesOrderID String
+  status       String   @default("CREATED")
+  order        Orders   @relation(fields: [orderID], references: [id])
+  orderID      Int
 }

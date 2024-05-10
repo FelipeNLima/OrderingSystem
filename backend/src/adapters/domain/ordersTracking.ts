@@ -1,7 +1,8 @@
 export interface OrdersTracking {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  status: string;
-  orderID: number;
+  id?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  salesOrderID: string;
+  status?: string;
+  orderID?: number;
 }

@@ -16,15 +16,6 @@ export class OrdersTrackingAdapter implements OrdersTrackingRepository {
     }
   }
 
-  async saveTracking(tracking: OrdersTracking): Promise<OrdersTracking> {
-    try {
-      return await this.prisma.orderTracking.create({ data: tracking });
-    } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
-    }
-  }
-
   async updateTracking(tracking: OrdersTracking): Promise<OrdersTracking> {
     try {
       return await this.prisma.orderTracking.update({

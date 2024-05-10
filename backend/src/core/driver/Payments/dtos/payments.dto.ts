@@ -1,6 +1,5 @@
 import {
   IsBase64,
-  IsDate,
   IsDefined,
   IsNumber,
   IsOptional,
@@ -13,16 +12,20 @@ export class PaymentsDto {
   id: number;
 
   @IsOptional()
-  @IsDate()
-  createdApproved: Date;
+  @IsString()
+  salesOrderID: string;
+
+  @IsOptional()
+  @IsString()
+  createdApproved: string;
 
   @IsDefined()
   @IsString()
-  paymentMethodID: string;
+  paymentMethod: string;
 
   @IsDefined()
   @IsString()
-  paymentTypeID: string;
+  paymentType: string;
 
   @IsDefined()
   @IsString()
@@ -51,4 +54,8 @@ export class PaymentsDto {
   @IsDefined()
   @IsString()
   ticketUrl: string;
+
+  @IsDefined()
+  @IsNumber()
+  orderID: number;
 }

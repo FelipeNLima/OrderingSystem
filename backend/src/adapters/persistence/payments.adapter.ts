@@ -15,27 +15,4 @@ export class PaymentsAdapter implements PaymentsRepository {
       throw new Error(message);
     }
   }
-
-  async savePayments(payments: Payments): Promise<Payments> {
-    try {
-      return await this.prisma.payments.create({ data: payments });
-    } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
-    }
-  }
-
-  async updatePayments(payments: Payments): Promise<Payments> {
-    try {
-      return await this.prisma.payments.update({
-        where: {
-          id: payments.id,
-        },
-        data: payments,
-      });
-    } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
-    }
-  }
 }

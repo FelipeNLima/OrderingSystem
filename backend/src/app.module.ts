@@ -8,6 +8,7 @@ import { PaymentsModule } from './core/driver/Payments/payments.module';
 import { ProductsModule } from './core/driver/Products/products.module';
 import { HealthModule } from './health/health.module';
 import { PrismaService } from './services/prisma.service';
+import { QRCodeService } from './services/qrcode.service';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { PrismaService } from './services/prisma.service';
     OrdersModule,
     OrderTrackingModule,
   ],
-  providers: [PrismaService],
+  providers: [PrismaService, QRCodeService],
   exports: [],
   controllers: [],
 })

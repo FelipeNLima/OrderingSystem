@@ -9,11 +9,12 @@ Content-Type: application/json
 # Criar usuarios
 ###
 
-POST http://localhost:3000/customer
+POST http://localhost:3000/customers
 Content-Type: application/json
 
 {
   "name": "Felipe",
   "email": "felipe2@test.com.br",
-  "cpf": "12302300019"
+  "cpf": "12302300019",
+  "isAdmin": false
 }

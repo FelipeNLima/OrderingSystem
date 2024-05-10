@@ -1,19 +1,26 @@
 # GET
-# Busca Cliente
+# Busca pedido
 ###
 
-GET http://localhost:3000/customer
+GET http://localhost:3000/orders/1
 Content-Type: application/json
 
 # POST
-# Criar usuarios
+# Criar pedido
 ###
 
-POST http://localhost:3000/customer
+POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
-  "name": "Felipe",
-  "email": "felipe2@test.com.br",
-  "cpf": "12302300019"
+  "customerID": 1,
+  "amount": 55,
+  "orderItens": [
+    {
+      "name": "Coca-cola",
+      "quantity": 10,
+      "priceUnit": 5.5,
+      "productID": 1,
+    }
+  ]
 }
