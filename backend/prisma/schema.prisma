@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Customer {
   id        Int      @id @default(autoincrement())
   email     String?  @unique
   name      String?
@@ -21,4 +21,76 @@ model User {
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  Order     Orders[]
+}
+
+model Payments {
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  createdApproved   DateTime
+  paymentMethodID   String
+  paymentTypeID     String
+  status            String
+  statusDetail      String
+  externalReference String   @unique
+  transactionAmount Float
+  qrCode            String   @unique
+  qrCodeBase64      String   @unique
+  ticketUrl         String   @unique
+  Order             Orders[]
+}
+
+model Orders {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  amount        Float
+  customer      Customer        @relation(fields: [customerID], references: [id])
+  customerID    Int
+  payment       Payments        @relation(fields: [paymentID], references: [id])
+  paymentID     Int
+  OrderTracking OrderTracking[]
+  OrderItens    OrderItens[]
+}
+
+model OrderItens {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  quantity  Int
+  priceUnit Float
+  order     Orders   @relation(fields: [orderID], references: [id])
+  orderID   Int
+  products  Products @relation(fields: [productID], references: [id])
+  productID Int
+}
+
+model Products {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  name       String
+  priceUnit  Float
+  categories Categories   @relation(fields: [categoryID], references: [id])
+  categoryID Int
+  OrderItens OrderItens[]
+}
+
+model Categories {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  type      String
+  Products  Products[]
+}
+
+model OrderTracking {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  status    String   @default("CREATED")
+  order     Orders   @relation(fields: [orderID], references: [id])
+  orderID   Int
 }

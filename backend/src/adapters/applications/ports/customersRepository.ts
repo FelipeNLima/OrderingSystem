@@ -1,0 +1,8 @@
+import { Customers } from 'src/adapters/domain/customer';
+
+export abstract class CustomersRepository {
+  abstract getCustomerById(id: number): Promise<Customers | null>;
+  abstract saveCustomer(customer: Customers): Promise<Customers>;
+  abstract updateCustomer(customer: Customers): Promise<Customers>;
+  abstract deleteCustomerById(id: number): Promise<Customers>;
+}

@@ -1,0 +1,19 @@
+# GET
+# Busca Cliente
+###
+
+GET http://localhost:3000/customer
+Content-Type: application/json
+
+# POST
+# Criar usuarios
+###
+
+POST http://localhost:3000/customer
+Content-Type: application/json
+
+{
+  "name": "Felipe",
+  "email": "felipe2@test.com.br",
+  "cpf": "12302300019"
+}
