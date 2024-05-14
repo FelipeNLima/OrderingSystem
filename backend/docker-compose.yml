@@ -3,10 +3,14 @@ version: '3.9'
 services:
   app:
     image: node:18-slim
-    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - mysql
     ports:
       - 3000:3000
     working_dir: /app
+    build:
+      context:
+      dockerfile: Dockerfile
     volumes:
       - ./:/app
 

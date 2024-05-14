@@ -3,4 +3,5 @@ export interface Products {
   name: string;
   priceUnit: number;
   categoryID: number;
+
 }
