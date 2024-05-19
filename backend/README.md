@@ -35,7 +35,7 @@ $ yarn test:cov
 $ yarn start:dev
 
 # run the command
-$ http://localhost:3000/api/docs
+$ http://localhost:3000/api/swagger
 ```
 
 ## Documentation

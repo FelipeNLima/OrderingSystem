@@ -16,7 +16,7 @@ export default async function (app: INestApplication) {
 
     const document = SwaggerModule.createDocument(app, documentBuild);
 
-    SwaggerModule.setup('api', app, document, {
+    SwaggerModule.setup('api/swagger', app, document, {
       customSiteTitle: 'API Backend',
       swaggerOptions: {
         syntaxHighlight: {
