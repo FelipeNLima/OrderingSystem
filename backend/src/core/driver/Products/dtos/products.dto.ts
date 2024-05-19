@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDate,
   IsDefined,
@@ -19,14 +20,17 @@ export class ProductsDto {
   @IsDate()
   updatedAt: Date;
 
+  @ApiProperty()
   @IsDefined()
   @IsString()
   name: string;
 
+  @ApiProperty()
   @IsDefined()
   @IsNumber()
   priceUnit: number;
 
+  @ApiProperty()
   @IsDefined()
   @IsNumber()
   categoryID: number;

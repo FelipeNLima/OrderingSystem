@@ -12,6 +12,10 @@ export class OrdersTrackingService {
     return this.ordersTrackingRepository.getTrackingById(id);
   }
 
+  async getAll(): Promise<OrdersTracking[] | null> {
+    return this.ordersTrackingRepository.getTrackingAll();
+  }
+
   async update(tracking: OrdersTracking): Promise<OrdersTracking> {
     return this.ordersTrackingRepository.updateTracking(tracking);
   }

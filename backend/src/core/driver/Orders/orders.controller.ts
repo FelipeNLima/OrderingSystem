@@ -8,9 +8,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { OrdersService } from 'src/adapters/applications/services/orders.service';
 import { OrdersDto } from './dtos/orders.dto';
 
+@ApiTags('Pedido')
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}

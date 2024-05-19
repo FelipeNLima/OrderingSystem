@@ -3,6 +3,6 @@ export interface OrderItens {
   name: string;
   quantity: number;
   priceUnit: number;
-  parentID: number;
+  orderID: number;
   productID: number;
 }

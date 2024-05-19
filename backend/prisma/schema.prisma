@@ -5,7 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  output        = "../generated"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -17,7 +19,7 @@ model Customer {
   id        Int      @id @default(autoincrement())
   email     String?  @unique
   name      String?
-  cpf       String?  @unique
+  cpf       Int?     @unique
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -25,22 +27,14 @@ model Customer {
 }
 
 model Payments {
-  id                Int      @id @default(autoincrement())
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
-  salesOrderID      String
-  createdApproved   String
-  paymentMethod     String
-  paymentType       String
-  status            String
-  statusDetail      String
-  externalReference String   @unique
-  transactionAmount Float
-  qrCode            String   @unique
-  qrCodeBase64      String   @unique
-  ticketUrl         String   @unique
-  order             Orders   @relation(fields: [orderID], references: [id])
-  orderID           Int
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+  salesOrderID   String
+  inStoreOrderID String
+  qrCode         String   @unique
+  order          Orders   @relation(fields: [orderID], references: [id])
+  orderID        Int
 }
 
 model Orders {
@@ -63,8 +57,8 @@ model OrderItens {
   name      String
   quantity  Int
   priceUnit Float
-  order     Orders   @relation(fields: [parentID], references: [id])
-  parentID  Int
+  order     Orders   @relation(fields: [orderID], references: [id])
+  orderID   Int
   products  Products @relation(fields: [productID], references: [id])
   productID Int
 }
@@ -81,11 +75,12 @@ model Products {
 }
 
 model Categories {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now())
-  type      String
-  Products  Products[]
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @default(now())
+  categoryID Int
+  type       String
+  Products   Products[]
 }
 
 model OrderTracking {

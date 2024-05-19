@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CategoriesDto {
@@ -5,6 +6,12 @@ export class CategoriesDto {
   @IsNumber()
   id: number;
 
+  @ApiProperty()
+  @IsDefined()
+  @IsNumber()
+  categoryID: number;
+
+  @ApiProperty()
   @IsDefined()
   @IsString()
   type: string;

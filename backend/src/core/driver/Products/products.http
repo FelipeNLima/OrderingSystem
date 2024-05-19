@@ -2,7 +2,7 @@
 # Busca Produtos
 ###
 
-GET http://localhost:3000/products/2
+GET http://localhost:3000/products/1
 Content-Type: application/json
 
 # POST
@@ -13,7 +13,7 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "name": "Coca-cola",
-  "priceUnit": 5.50,
-  "categoryID": 1
+  "name": "batata frita grande",
+  "priceUnit": 8,
+  "categoryID": 3
 }

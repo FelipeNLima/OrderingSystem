@@ -1,29 +1,45 @@
 version: '3.9'
 
 services:
-  app:
-    image: node:18-slim
-    command: sh -c "npm install && npm run dev"
-    ports:
-      - 3000:3000
-    working_dir: /app
-    volumes:
-      - ./:/app
-
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
-      MYSQL_DB: mysql
-
-  mysql:
+  mysqldb:
     image: mysql:latest
-    volumes:
-      - dbMySql:/var/lib/mysql
+    container_name: dbMySql
+    restart: always
+    env_file: ./.env
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: dbMySql
-      MYSQL_PORT: 3307:3306
+      MYSQL_ROOT_PASSWORD: $MYSQLDB_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQLDB_DATABASE
     ports:
-      - '3307:3306'
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    expose:
+      - $MYSQLDB_LOCAL_PORT
+    volumes:
+      - db:/var/lib/mysql
+
+  api:
+    depends_on:
+      - mysqldb
+    container_name: nestjs
+    image: nestjs-dev
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # ✨ Target the dev stage
+      target: dev
+    # Mount host directory to docker container to support watch mode
+    volumes:
+      - .:/app
+      # This ensures that the NestJS container manages the node_modules folder
+      # rather than synchronizes it with the host machine
+      - /app/node_modules
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_LOCAL_PORT
+    environment:
+      - DATABASE_URL=$DATABASE_URL
+      - TOKEN_MERCADO_PAGO=$TOKEN_MERCADO_PAGO
+      - USERID=$USERID
+      - POSID=$POSID
+volumes:
+  db:

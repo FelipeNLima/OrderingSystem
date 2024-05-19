@@ -5,4 +5,5 @@ export interface OrdersTracking {
   salesOrderID: string;
   status?: string;
   orderID?: number;
+  waitingTime?: number;
 }

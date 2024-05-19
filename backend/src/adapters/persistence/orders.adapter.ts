@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { paymentsMethods } from 'src/enums/paymentsMethods';
-import { PrismaService } from 'src/services/prisma.service';
-import { QRCodeService } from 'src/services/qrcode.service';
+
+import { PrismaService } from '../applications/apis/prisma.service';
+import { QRCodeService } from '../applications/apis/qrcode.service';
 import { OrdersRepository } from '../applications/ports/ordersRepository';
 import { Orders } from '../domain/orders';
-import { Payments } from '../domain/payments';
 
 @Injectable()
 export class OrdersAdapter implements OrdersRepository {
@@ -27,44 +26,44 @@ export class OrdersAdapter implements OrdersRepository {
       return order;
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
+      throw new BadRequestException(message);
     }
   }
 
   async saveOrder(orders: Orders): Promise<Orders> {
     try {
       let order: Orders;
-      let payment: Payments;
+      let payment: any;
+      const salesOrderID = randomUUID();
+
+      const items = orders.orderItens.map((item) => ({
+        sku_number: item?.productID.toString(),
+        category: 'marketplace',
+        title: item?.name,
+        unit_price: item?.priceUnit,
+        quantity: item?.quantity,
+        unit_measure: 'unit',
+        total_amount: item?.quantity * item?.priceUnit,
+      }));
 
       const body = {
-        transaction_amount: orders?.amount,
         description: `QRCODE-${orders.customerID}-${new Date()}`,
-        payment_method_id: paymentsMethods.CREDITCARD,
-        payer: {
-          email: 'N/D',
+        external_reference: salesOrderID,
+        title: 'Teste',
+        total_amount: orders?.amount,
+        cash_out: {
+          amount: 0,
         },
+        items,
       };
 
-      const results = await this.qrCode.create({ body });
+      const { data } = await this.qrCode.create(body);
 
-      if (results) {
-        const salesOrderID = randomUUID();
+      if (data) {
         payment = {
-          id: results?.id,
-          salesOrderID: salesOrderID,
-          createdApproved: results?.date_approved ?? '',
-          paymentMethod: results?.payment_method_id ?? '',
-          paymentType: results?.payment_type_id ?? '',
-          status: results?.status ?? '',
-          statusDetail: results?.status_detail ?? '',
-          externalReference: results?.external_reference ?? '',
-          transactionAmount: results?.transaction_amount ?? 0,
-          qrCode: results.point_of_interaction?.transaction_data?.qr_code ?? '',
-          qrCodeBase64:
-            results.point_of_interaction?.transaction_data?.qr_code_base64 ??
-            '',
-          ticketUrl:
-            results.point_of_interaction?.transaction_data?.ticket_url ?? '',
+          salesOrderID,
+          qrCode: data?.qr_data,
+          inStoreOrderID: data?.in_store_order_id,
         };
 
         order = {
@@ -82,9 +81,9 @@ export class OrdersAdapter implements OrdersRepository {
       return await this.prisma.orders.create({
         data: {
           ...order,
-          orderItens: { create: orders.orderItens },
-          payments: { create: orders.payments },
-          orderTracking: { create: orders.orderTracking },
+          orderItens: { create: order.orderItens },
+          payments: { create: order.payments },
+          orderTracking: { create: order.orderTracking },
         },
         include: {
           orderItens: true,
@@ -93,8 +92,9 @@ export class OrdersAdapter implements OrdersRepository {
         },
       });
     } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
+      const message =
+        error?.meta?.target || error?.meta?.details || error?.message;
+      throw new BadRequestException(message);
     }
   }
 
@@ -118,7 +118,7 @@ export class OrdersAdapter implements OrdersRepository {
       });
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
+      throw new BadRequestException(message);
     }
   }
 
@@ -136,7 +136,7 @@ export class OrdersAdapter implements OrdersRepository {
       return order;
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
+      throw new BadRequestException(message);
     }
   }
 }

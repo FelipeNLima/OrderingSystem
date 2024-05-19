@@ -9,6 +9,13 @@ export class CustomerService {
   async getById(id: number): Promise<Customers | null> {
     return this.customersRepository.getCustomerById(id);
   }
+  async getByCpf(cpf: number): Promise<Customers | null> {
+    return this.customersRepository.getCustomerByCpf(cpf);
+  }
+
+  async getCheckIsAdmin(id: number): Promise<boolean> {
+    return this.customersRepository.getCheckIsAdmin(id);
+  }
 
   async create(customer: Customers): Promise<Customers> {
     return this.customersRepository.saveCustomer(customer);

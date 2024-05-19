@@ -1,10 +1,4 @@
-import {
-  IsBase64,
-  IsDefined,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class PaymentsDto {
   @IsOptional()
@@ -17,45 +11,13 @@ export class PaymentsDto {
 
   @IsOptional()
   @IsString()
-  createdApproved: string;
+  inStoreOrderID: string;
 
-  @IsDefined()
-  @IsString()
-  paymentMethod: string;
-
-  @IsDefined()
-  @IsString()
-  paymentType: string;
-
-  @IsDefined()
-  @IsString()
-  status: string;
-
-  @IsDefined()
-  @IsString()
-  statusDetail: string;
-
-  @IsDefined()
-  @IsString()
-  externalReference: string;
-
-  @IsDefined()
-  @IsNumber()
-  transactionAmount: number;
-
-  @IsDefined()
+  @IsOptional()
   @IsString()
   qrCode: string;
 
-  @IsDefined()
-  @IsBase64()
-  qrCodeBase64: string;
-
-  @IsDefined()
-  @IsString()
-  ticketUrl: string;
-
-  @IsDefined()
+  @IsOptional()
   @IsNumber()
   orderID: number;
 }

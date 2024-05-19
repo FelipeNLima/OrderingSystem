@@ -1,6 +1,8 @@
 import { ConflictException, Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PaymentsService } from 'src/adapters/applications/services/payments.service';
 
+@ApiTags('Pagamentos')
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}

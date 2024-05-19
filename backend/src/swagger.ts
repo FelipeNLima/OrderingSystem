@@ -10,13 +10,13 @@ export default async function (app: INestApplication) {
   if (env !== 'prd') {
     const documentBuild = new DocumentBuilder()
       .setTitle('API Backend')
-      .setDescription('API desenvolvida para o projeto Pós.')
+      .setDescription('API desenvolvida para o projeto pos-tech.')
       .setVersion('1.0')
       .build();
 
     const document = SwaggerModule.createDocument(app, documentBuild);
 
-    SwaggerModule.setup('api/docs', app, document, {
+    SwaggerModule.setup('api', app, document, {
       customSiteTitle: 'API Backend',
       swaggerOptions: {
         syntaxHighlight: {

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { PrismaService } from 'src/adapters/applications/apis/prisma.service';
 import { CustomersRepository } from 'src/adapters/applications/ports/customersRepository';
 import { CustomerService } from 'src/adapters/applications/services/customer.service';
 import { CustomersAdapter } from 'src/adapters/persistence/customers.adapter';
-import { PrismaService } from 'src/services/prisma.service';
 import { CustomersController } from './customers.controller';
 
 @Module({
@@ -13,5 +13,6 @@ import { CustomersController } from './customers.controller';
     PrismaService,
     CustomerService,
   ],
+  exports: [CustomerService],
 })
 export class CustomersModule {}

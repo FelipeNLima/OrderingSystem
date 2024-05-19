@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/services/prisma.service';
+import { PrismaService } from '../applications/apis/prisma.service';
 import { CustomersRepository } from '../applications/ports/customersRepository';
 import { Customers } from '../domain/customer';
 
@@ -10,6 +10,28 @@ export class CustomersAdapter implements CustomersRepository {
   async getCustomerById(id: number): Promise<Customers | null> {
     try {
       return await this.prisma.customer.findUnique({ where: { id } });
+    } catch (error) {
+      const message = error?.meta?.target || error?.meta?.details;
+      throw new Error(message);
+    }
+  }
+
+  async getCustomerByCpf(cpf: number): Promise<Customers | null> {
+    try {
+      return await this.prisma.customer.findUnique({ where: { cpf } });
+    } catch (error) {
+      const message = error?.meta?.target || error?.meta?.details;
+      throw new Error(message);
+    }
+  }
+
+  async getCheckIsAdmin(id: number): Promise<boolean> {
+    try {
+      const customer = await this.prisma.customer.findUnique({
+        where: { id },
+      });
+
+      return Boolean(customer?.isAdmin);
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
       throw new Error(message);

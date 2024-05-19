@@ -1,19 +1,37 @@
 # GET
-# Busca Cliente
+# Busca Tracking do pedido
 ###
 
-GET http://localhost:3000/customer
+GET http://localhost:3000/ordersTracking
 Content-Type: application/json
+user: 2
 
-# POST
-# Criar usuarios
+# GET
+# Busca tracking do pedido pelo ID
 ###
 
-POST http://localhost:3000/customer
+GET http://localhost:3000/ordersTracking/1
 Content-Type: application/json
+user: 2
+
+# PUT
+# atualizar tracking do pedido
+###
+
+PATCH http://localhost:3000/ordersTracking
+Content-Type: application/json
+user: 2
 
 {
-  "name": "Felipe",
-  "email": "felipe2@test.com.br",
-  "cpf": "12302300019"
+  "id": 2,
+  "status": "FINISHED"
 }
+
+
+# Status {
+#   'CREATED' = 'CREATED',
+#   'IN_PREPARATION' = 'IN_PREPARATION',
+#   'READY' = 'READY',
+#   'FINISHED' = 'FINISHED',
+#   'CANCELED' = 'CANCELED',
+# }
