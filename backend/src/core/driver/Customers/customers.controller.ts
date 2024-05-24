@@ -8,7 +8,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { CustomerService } from 'src/adapters/applications/services/customer.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
 import { CustomersDto } from './dtos/customers.dto';
@@ -19,6 +19,10 @@ export class CustomersController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async getByID(@Param('id') id: number) {
     try {
@@ -30,6 +34,10 @@ export class CustomersController {
   }
 
   @Get(':cpf')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async getByCpf(@Param('cpf') cpf: number) {
     try {
@@ -51,6 +59,10 @@ export class CustomersController {
   }
 
   @Patch()
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async update(@Body() dto: CustomersDto) {
     try {
@@ -62,6 +74,10 @@ export class CustomersController {
   }
 
   @Delete(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async delete(@Param('id') id: number) {
     try {

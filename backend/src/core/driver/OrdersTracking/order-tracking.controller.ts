@@ -7,7 +7,7 @@ import {
   Param,
   Patch,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { OrdersTrackingService } from 'src/adapters/applications/services/ordersTracking.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
 import { OrdersTrackingDto } from './dtos/order-tracking.dto';
@@ -18,6 +18,10 @@ export class OrdersTrackingController {
   constructor(private readonly ordersTrackingService: OrdersTrackingService) {}
 
   @Get()
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async getAll() {
     try {
@@ -29,6 +33,10 @@ export class OrdersTrackingController {
   }
 
   @Get(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async getByID(@Param('id') id: number) {
     try {
@@ -40,6 +48,10 @@ export class OrdersTrackingController {
   }
 
   @Patch()
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async update(@Body() dto: OrdersTrackingDto) {
     try {
@@ -51,6 +63,10 @@ export class OrdersTrackingController {
   }
 
   @Delete(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
   @Roles(['admin'])
   async delete(@Param('id') id: number) {
     try {

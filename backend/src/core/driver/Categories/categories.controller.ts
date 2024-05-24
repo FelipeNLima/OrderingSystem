@@ -8,12 +8,16 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from 'src/adapters/applications/services/categories.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
 import { CategoriesDto } from './dtos/categories.dto';
 
 @ApiTags('Categorias')
+@ApiHeader({
+  name: 'user',
+  description: 'ID do usuário ADMIN',
+})
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}

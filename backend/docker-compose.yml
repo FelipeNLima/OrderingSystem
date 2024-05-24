@@ -15,6 +15,8 @@ services:
       - $MYSQLDB_LOCAL_PORT
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - orderSystem
 
   api:
     depends_on:
@@ -25,14 +27,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # ✨ Target the dev stage
-      target: dev
-    # Mount host directory to docker container to support watch mode
-    volumes:
-      - .:/app
-      # This ensures that the NestJS container manages the node_modules folder
-      # rather than synchronizes it with the host machine
-      - /app/node_modules
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_LOCAL_PORT
@@ -41,5 +35,16 @@ services:
       - TOKEN_MERCADO_PAGO=$TOKEN_MERCADO_PAGO
       - USERID=$USERID
       - POSID=$POSID
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - orderSystem
+
 volumes:
   db:
+networks:
+  orderSystem:
+    driver: bridge

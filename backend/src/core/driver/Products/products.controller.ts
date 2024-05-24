@@ -8,8 +8,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from 'src/adapters/applications/services/products.service';
+import { Roles } from 'src/core/guard/decorators/roles.decorator';
 import { ProductsDto } from './dtos/products.dto';
 
 @ApiTags('Produtos')
@@ -18,6 +19,11 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
+  @Roles(['admin'])
   async getByID(@Param('id') id: number) {
     try {
       const products = await this.productsService.getById(Number(id));
@@ -28,6 +34,11 @@ export class ProductsController {
   }
 
   @Post()
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
+  @Roles(['admin'])
   async save(@Body() dto: ProductsDto) {
     try {
       const products = await this.productsService.create(dto);
@@ -38,6 +49,11 @@ export class ProductsController {
   }
 
   @Patch()
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
+  @Roles(['admin'])
   async update(@Body() dto: ProductsDto) {
     try {
       const products = await this.productsService.update(dto);
@@ -48,6 +64,11 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
+  @Roles(['admin'])
   async delete(@Param('id') id: number) {
     try {
       const products = await this.productsService.delete(Number(id));

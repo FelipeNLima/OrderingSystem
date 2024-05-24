@@ -8,7 +8,7 @@ Backend do projeto Sistema de autoatendimento de fast food
 $ yarn
 ```
 
-## Running the app
+## Running the app Local
 
 ```bash
 # development
@@ -51,4 +51,11 @@ $ yarn doc
 # run the command
 $ yarn start:dev
 $ http://localhost:3000/health
+```
+
+## Running the app Building
+
+```bash
+# run the command
+$ yarn docker:build
 ```

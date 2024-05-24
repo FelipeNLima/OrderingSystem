@@ -2,7 +2,7 @@
 # Busca Cliente
 ###
 
-GET http://localhost:3000/customer
+GET http://localhost:3000/customers
 Content-Type: application/json
 
 # POST

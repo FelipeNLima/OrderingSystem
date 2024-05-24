@@ -1,32 +1,18 @@
-#
-# 🧑‍💻 Development
-#
-FROM node:lts AS dev
+FROM node:18-buster
+# RUN apt-get update && \
+#   apt-get install -y openssl
 
 # Create app directory
 WORKDIR /app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-COPY prisma ./prisma/
-
-RUN apt-get update -y && apt-get install -y openssl
+COPY package.json ./
+COPY yarn.lock ./
+COPY tsconfig.json ./
+COPY ./prisma ./prisma
 
 # Install app dependencies
-RUN yarn --frozen-lockfile
+RUN yarn
 
 COPY . .
 
-RUN yarn build
-
-FROM node:lts
-
-WORKDIR /app
-
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/generated ./generated
-
-EXPOSE 3000
 CMD [ "yarn", "start:migrate:prod" ]
