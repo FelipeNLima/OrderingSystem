@@ -1,9 +1,9 @@
 import {
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -29,7 +29,7 @@ export class CustomersController {
       const customer = await this.customerService.getById(Number(id));
       return customer;
     } catch (err) {
-      throw new ConflictException('Customer could not be list');
+      throw new NotFoundException('Customer could not be list');
     }
   }
 
@@ -41,10 +41,10 @@ export class CustomersController {
   @Roles(['admin'])
   async getByCpf(@Param('cpf') cpf: number) {
     try {
-      const customer = await this.customerService.getByCpf(Number(cpf));
+      const customer = await this.customerService.getByCpf(String(cpf));
       return customer;
     } catch (err) {
-      throw new ConflictException('Customer could not be list');
+      throw new NotFoundException(err?.message || 'Customer could not be list');
     }
   }
 
@@ -54,7 +54,9 @@ export class CustomersController {
       const customer = await this.customerService.create(dto);
       return customer;
     } catch (err) {
-      throw new ConflictException('Customer could not be created');
+      throw new NotFoundException(
+        err?.message || 'Customer could not be created',
+      );
     }
   }
 
@@ -69,7 +71,7 @@ export class CustomersController {
       const customer = await this.customerService.update(dto);
       return customer;
     } catch (err) {
-      throw new ConflictException('Customer could not be updated');
+      throw new NotFoundException('Customer could not be updated');
     }
   }
 
@@ -84,7 +86,7 @@ export class CustomersController {
       const customer = await this.customerService.delete(Number(id));
       return customer;
     } catch (err) {
-      throw new ConflictException('Customer could not be deleted');
+      throw new NotFoundException('Customer could not be deleted');
     }
   }
 }

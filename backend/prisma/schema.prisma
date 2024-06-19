@@ -18,7 +18,7 @@ model Customer {
   id        Int      @id @default(autoincrement())
   email     String?  @unique
   name      String?
-  cpf       Int?     @unique
+  cpf       String?  @unique
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -34,6 +34,7 @@ model Payments {
   qrCode         String   @unique
   order          Orders   @relation(fields: [orderID], references: [id])
   orderID        Int
+  status         String   @default("PENDING")
 }
 
 model Orders {
@@ -74,12 +75,11 @@ model Products {
 }
 
 model Categories {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @default(now())
-  categoryID Int
-  type       String
-  Products   Products[]
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  type      String
+  Products  Products[]
 }
 
 model OrderTracking {

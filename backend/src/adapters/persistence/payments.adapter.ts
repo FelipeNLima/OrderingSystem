@@ -15,4 +15,15 @@ export class PaymentsAdapter implements PaymentsRepository {
       throw new Error(message);
     }
   }
+
+  async getPaymentsByOrderId(orderID: number): Promise<Payments | null> {
+    try {
+      return await this.prisma.payments.findFirst({
+        where: { orderID: orderID },
+      });
+    } catch (error) {
+      const message = error?.meta?.target || error?.meta?.details;
+      throw new Error(message);
+    }
+  }
 }

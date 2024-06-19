@@ -33,7 +33,17 @@ export class CategoriesController {
     }
   }
 
-  //TODO criar rota para trazer os produtos filtrando pela categoria
+  @Get(':categoryID')
+  @Roles(['admin'])
+  async getProductByCategoryID(@Param('categoryID') categoryID: number) {
+    try {
+      const categories =
+        await this.categoriesService.getProductByCategoryID(categoryID);
+      return categories;
+    } catch (err) {
+      throw new ConflictException('Categories could not be list');
+    }
+  }
 
   @Post()
   @Roles(['admin'])

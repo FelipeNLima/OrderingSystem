@@ -9,7 +9,7 @@ export class CustomerService {
   async getById(id: number): Promise<Customers | null> {
     return this.customersRepository.getCustomerById(id);
   }
-  async getByCpf(cpf: number): Promise<Customers | null> {
+  async getByCpf(cpf: string): Promise<Customers | null> {
     return this.customersRepository.getCustomerByCpf(cpf);
   }
 

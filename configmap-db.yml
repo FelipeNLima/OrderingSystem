@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+label:
+  name: db-config
+data: 
+  MYSQLDB_USER: 'root'
+  MYSQLDB_ROOT_PASSWORD: 1234
+  MYSQLDB_DATABASE: 'dbMySql'
+  MYSQLDB_LOCAL_PORT: 3307
+  MYSQLDB_DOCKER_PORT: 3306

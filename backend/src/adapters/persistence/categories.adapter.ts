@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../applications/apis/prisma.service';
 import { CategoriesRepository } from '../applications/ports/categoriesRepository';
 import { Categories } from '../domain/categories';
+import { ProductsByCategory } from '../domain/productsByCategory';
 
 @Injectable()
 export class CategoriesAdapter implements CategoriesRepository {
@@ -16,6 +17,21 @@ export class CategoriesAdapter implements CategoriesRepository {
     }
   }
 
+  async getProductByCategoryID(
+    categoryID: number,
+  ): Promise<ProductsByCategory | null> {
+    try {
+      return await this.prisma.categories.findFirst({
+        where: { id: categoryID },
+        select: { Products: true },
+      });
+    } catch (error) {
+      const message =
+        error?.message || error?.meta?.target || error?.meta?.details;
+      throw new Error(message);
+    }
+  }
+
   async saveCategories(categories: Categories): Promise<Categories> {
     try {
       return await this.prisma.categories.create({ data: categories });
@@ -25,13 +41,13 @@ export class CategoriesAdapter implements CategoriesRepository {
     }
   }
 
-  async updateCategories(customer: Categories): Promise<Categories> {
+  async updateCategories(category: Categories): Promise<Categories> {
     try {
       return await this.prisma.categories.update({
         where: {
-          id: customer.id,
+          id: category.id,
         },
-        data: customer,
+        data: category,
       });
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;

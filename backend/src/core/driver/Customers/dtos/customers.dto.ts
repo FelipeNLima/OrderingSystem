@@ -18,8 +18,8 @@ export class CustomersDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsNumber()
-  cpf: number;
+  @IsString()
+  cpf: string;
 
   @ApiProperty()
   @IsOptional()

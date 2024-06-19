@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../applications/apis/prisma.service';
 import { CustomersRepository } from '../applications/ports/customersRepository';
 import { Customers } from '../domain/customer';
+import { removeMaskCpf } from '../utils/removeMaskCpf';
 
 @Injectable()
 export class CustomersAdapter implements CustomersRepository {
@@ -16,11 +17,24 @@ export class CustomersAdapter implements CustomersRepository {
     }
   }
 
-  async getCustomerByCpf(cpf: number): Promise<Customers | null> {
+  async getCustomerByCpf(cpf: string): Promise<Customers | null> {
     try {
-      return await this.prisma.customer.findUnique({ where: { cpf } });
+      let newCpf = cpf;
+      if (newCpf) {
+        newCpf = removeMaskCpf(cpf);
+        if (newCpf.length > 11) {
+          throw new Error('cpf invalido');
+        }
+      } else {
+        throw new Error('cpf invalido');
+      }
+
+      return await this.prisma.customer.findUnique({
+        where: { cpf: newCpf },
+      });
     } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
+      const message =
+        error?.message || error?.meta?.target || error?.meta?.details;
       throw new Error(message);
     }
   }
@@ -40,9 +54,20 @@ export class CustomersAdapter implements CustomersRepository {
 
   async saveCustomer(customer: Customers): Promise<Customers> {
     try {
-      return await this.prisma.customer.create({ data: customer });
+      let customerData = customer;
+      if (customer?.cpf) {
+        const newCpf = removeMaskCpf(customer?.cpf);
+        if (newCpf.length > 11) {
+          throw new Error('cpf invalido');
+        }
+
+        customerData = { ...customerData, cpf: newCpf };
+      }
+
+      return await this.prisma.customer.create({ data: customerData });
     } catch (error) {
-      const message = error?.meta?.target || error?.meta?.details;
+      const message =
+        error?.message || error?.meta?.target || error?.meta?.details;
       throw new Error(message);
     }
   }

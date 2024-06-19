@@ -38,6 +38,10 @@ $ yarn start:dev
 $ http://localhost:3000/api/swagger
 ```
 
+## Postman Collection
+
+[Download File](../Projeto_Fiap.postman_collection.json)
+
 ## Documentation
 
 ```bash

@@ -1,10 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
+import { format } from 'date-fns';
+import { Status } from 'src/core/enums/status';
 import { PrismaService } from '../applications/apis/prisma.service';
 import { QRCodeService } from '../applications/apis/qrcode.service';
 import { OrdersRepository } from '../applications/ports/ordersRepository';
-import { Orders } from '../domain/orders';
+import { AllOrdersToday, Orders } from '../domain/orders';
 
 @Injectable()
 export class OrdersAdapter implements OrdersRepository {
@@ -23,6 +25,38 @@ export class OrdersAdapter implements OrdersRepository {
           orderTracking: true,
         },
       });
+      return order;
+    } catch (error) {
+      const message = error?.meta?.target || error?.meta?.details;
+      throw new BadRequestException(message);
+    }
+  }
+
+  async getOrdersToday(): Promise<AllOrdersToday[] | null> {
+    try {
+      const dateFormatted = format(new Date(), 'yyyy-MM-dd') + 'T00:00:00.000Z';
+      const order = await this.prisma.orders.findMany({
+        where: {
+          createdAt: { gte: dateFormatted },
+          NOT: {
+            orderTracking: {
+              every: {
+                status: Status.FINISHED,
+              },
+            },
+          },
+        },
+        include: {
+          orderItens: true,
+          orderTracking: true,
+        },
+        orderBy: [
+          {
+            createdAt: 'asc',
+          },
+        ],
+      });
+
       return order;
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
@@ -57,6 +91,7 @@ export class OrdersAdapter implements OrdersRepository {
         items,
       };
 
+      //
       const { data } = await this.qrCode.create(body);
 
       if (data) {

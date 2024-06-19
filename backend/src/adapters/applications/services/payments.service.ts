@@ -9,4 +9,7 @@ export class PaymentsService {
   async getById(id: number): Promise<Payments | null> {
     return this.paymentsRepository.getPaymentsById(id);
   }
+  async getPaymentsByOrderId(orderID: number): Promise<Payments | null> {
+    return this.paymentsRepository.getPaymentsByOrderId(orderID);
+  }
 }

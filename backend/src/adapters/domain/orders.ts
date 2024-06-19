@@ -13,3 +13,14 @@ export interface Orders {
   payments: Payments[];
   orderTracking: OrdersTracking[];
 }
+
+export interface AllOrdersToday {
+  id?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  salesOrderID: string;
+  amount: number;
+  customerID: number;
+  orderItens: OrderItens[];
+  orderTracking: OrdersTracking[];
+}

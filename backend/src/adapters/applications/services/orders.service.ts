@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Orders } from 'src/adapters/domain/orders';
+import { AllOrdersToday, Orders } from 'src/adapters/domain/orders';
 import { OrdersRepository } from '../ports/ordersRepository';
 
 @Injectable()
@@ -8,6 +8,10 @@ export class OrdersService {
 
   async getById(id: number): Promise<Orders | null> {
     return this.ordersRepository.getOrderById(id);
+  }
+
+  async getOrdersToday(): Promise<AllOrdersToday[] | null> {
+    return this.ordersRepository.getOrdersToday();
   }
 
   async create(order: Orders): Promise<Orders> {

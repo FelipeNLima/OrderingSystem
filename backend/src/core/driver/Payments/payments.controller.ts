@@ -22,4 +22,21 @@ export class PaymentsController {
       throw new ConflictException('Payments could not be list');
     }
   }
+
+  @Get(':orderID')
+  @ApiHeader({
+    name: 'user',
+    description: 'ID do usuário ADMIN',
+  })
+  @Roles(['admin'])
+  async getPaymentsByOrderId(@Param('orderID') orderID: number) {
+    try {
+      const payments = await this.paymentsService.getPaymentsByOrderId(
+        Number(orderID),
+      );
+      return payments;
+    } catch (err) {
+      throw new ConflictException('Payments could not be list');
+    }
+  }
 }
