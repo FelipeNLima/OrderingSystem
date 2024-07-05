@@ -23,7 +23,7 @@ services:
       - mysqldb
     container_name: nestjs
     image: nestjs-dev
-    restart: unless-stopped
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
