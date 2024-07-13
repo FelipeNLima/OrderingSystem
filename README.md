@@ -43,7 +43,7 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 
 
 ```diff
-+ Subida do pod
++Subida do pod
 
 ```
 
@@ -52,13 +52,14 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 >**01. Cadastro de usuário**
 >> Chamar o endpoint POST/customers
 
-
 >**02. Cadastro das categorias**
 >>Chamar o endpoint POST/categories 
 
 >**03. Cadastro dos produtos**
+>
 >Com as categorias dos produtos criada, chamar o endpoint 
 >>POST/product
+>
 >para cadastrar o produto com sua respectiva categoria.
 
 **04. Realização do pedido**
