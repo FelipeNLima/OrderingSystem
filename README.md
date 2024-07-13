@@ -35,13 +35,16 @@ Os produtos dispostos para escolha do cliente serão gerenciados pelo estabeleci
 Deve ser possível acompanhar os pedidos em andamento e tempo de espera de cada pedido. As informações dispostas no sistema de pedidos precisarão ser gerenciadas pelo estabelecimento através de um painel administrativo.
 
 ## Arquitetura
-![arquitetura](/arquitetura.drawio.png.drawio)
+![arquitetura](/arquitetura.png)
 
 Nosso serviço OrdemSystem vai estar em EKS dentro da nuvem da AWS, os CRUD's dos endpoints serão feitos em um RDS na nuvem tambem.
 
 Teremos uma conexão com o mercado pago, para a realização do pagamento do pedido, onde no fluxo de inbound é feita a requisição para gerar um QRcode de pagamento, e no fluxo de outbound recebemos a confirmação do pagamento do pedido em nosso webhook.
 
 ## Intruções de uso
+
+**Subida do pod**
+
 
 **01. Cadastro de usuário**
 
