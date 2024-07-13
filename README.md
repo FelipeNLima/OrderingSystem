@@ -50,17 +50,15 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 ## Intruções de uso
 
 * **01. Cadastro de usuário**
->>Chamar o endpoint POST/customers
+>Chamar o endpoint POST/customers
 
->**02. Cadastro das categorias**
->>Chamar o endpoint POST/categories 
+* **02. Cadastro das categorias**
+>Chamar o endpoint POST/categories 
 
->**03. Cadastro dos produtos**
+* **03. Cadastro dos produtos**
+> POST/product
 >
->Com as categorias dos produtos criada, chamar o endpoint 
->>POST/product
->
->para cadastrar o produto com sua respectiva categoria.
+>Com as categorias dos produtos criada, chamar o endpoint de cadastro de produto, para cadastrar o produto com sua respectiva categoria.
 
 **04. Realização do pedido**
 
