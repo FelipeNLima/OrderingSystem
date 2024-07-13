@@ -41,39 +41,49 @@ Nosso serviço OrdemSystem vai estar em EKS dentro da nuvem da AWS, os CRUD's do
 
 Teremos uma conexão com o mercado pago, para a realização do pagamento do pedido, onde no fluxo de inbound é feita a requisição para gerar um QRcode de pagamento, e no fluxo de outbound recebemos a confirmação do pagamento do pedido em nosso webhook.
 
-
+**Rodar Pod AWS**
 ```diff
-**Subida do pod**
-
+01. Criar um cluester EKS na conta AWS
+02. Criar um node
+03. Fazer login na AWS via terminal
+04. Executar o comando aws eks update-kubeconfig --name [NOME_DO_CLUSTER]
+05. Ir até o diretório da pasta api-svc
+06. Executar o comando kubectl apply -f api-svc.yml
+06. Executar o comando kubectl apply -f configmap-api.yml
+07. Executar o comando kubectl apply -f api-deployment.yml
+08. Executar o portfoard da aplicação kubectl port-forward --address 0.0.0.0 api-deployment-76c6d54dcf-qrnjc 80:3000
 ```
-
+**Rodar Pod local**
+```diff
+01. Startar o minikube local
+02. Ir até o diretório da pasta api-svc
+03. Executar o comando kubectl apply -f api-svc.yml
+04. Executar o comando kubectl apply -f configmap-api.yml
+05. Executar o comando kubectl apply -f api-deployment.yml
+06. Executar o portfoard da aplicação kubectl port-forward --address 0.0.0.0 api-deployment-76c6d54dcf-qrnjc 80:3000
+```
 ## Intruções de uso
 
 * **01. Cadastro de usuário**
->Chamar o endpoint POST/customers
+>POST/customers
 
 * **02. Cadastro das categorias**
->Chamar o endpoint POST/categories 
+>POST/categories 
 
 * **03. Cadastro dos produtos**
 > POST/product
 >
 >Com as categorias dos produtos criada, chamar o endpoint de cadastro de produto, para cadastrar o produto com sua respectiva categoria.
 
-**04. Realização do pedido**
+* **04. Realização do pedido**
+> POST/orders
+>
+> Com as categorias e os produtos já cadastrados, chamar o endpoint de realização do pedido, para salvar o pedido feito.
 
-Com as categorias e os produtos já cadastrados, chamar o endpoint 
-
-POST/orders
-
-para salvar o pedido feito.
-
-**05. Cadastro do pagamento**
-
-Para receber a confirmação do pedido, vamos receber uma requisição no webhook pelo endpoint 
-
-POST/payments
-
+* **05. Cadastro do pagamento**
+> POST/payments
+>
+> Para receber a confirmação do pedido, vamos receber uma requisição no webhook
 ## Developers
 
 - Author - [Felipe José do Nascimento Lima](https://www.linkedin.com/in/felipe-lima-00bb62171/)
