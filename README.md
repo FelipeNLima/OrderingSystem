@@ -43,14 +43,14 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 
 
 ```diff
-+Subida do pod
+**Subida do pod**
 
 ```
 
 ## Intruções de uso
 
->**01. Cadastro de usuário**
->> Chamar o endpoint POST/customers
+* **01. Cadastro de usuário**
+Chamar o endpoint POST/customers
 
 >**02. Cadastro das categorias**
 >>Chamar o endpoint POST/categories 
