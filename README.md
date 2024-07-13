@@ -41,26 +41,25 @@ Nosso serviço OrdemSystem vai estar em EKS dentro da nuvem da AWS, os CRUD's do
 
 Teremos uma conexão com o mercado pago, para a realização do pagamento do pedido, onde no fluxo de inbound é feita a requisição para gerar um QRcode de pagamento, e no fluxo de outbound recebemos a confirmação do pagamento do pedido em nosso webhook.
 
+
+```diff
++ Subida do pod
+
+```
+
 ## Intruções de uso
 
-**Subida do pod**
+>**01. Cadastro de usuário**
+>> Chamar o endpoint POST/customers
 
 
-**01. Cadastro de usuário**
+>**02. Cadastro das categorias**
+>>Chamar o endpoint POST/categories 
 
-Chamar o endpoint POST/customers 
-
-**02. Cadastro das categorias**
-
-Chamar o endpoint POST/categories 
-
-**03. Cadastro dos produtos**
-
-Com as categorias dos produtos criada, chamar o endpoint 
-
-POST/product
-
-para cadastrar o produto com sua respectiva categoria.
+>**03. Cadastro dos produtos**
+>Com as categorias dos produtos criada, chamar o endpoint 
+>>POST/product
+>para cadastrar o produto com sua respectiva categoria.
 
 **04. Realização do pedido**
 
