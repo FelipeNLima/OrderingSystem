@@ -1,9 +1,9 @@
 import {
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -29,7 +29,9 @@ export class CategoriesController {
       const categories = await this.categoriesService.getById(Number(id));
       return categories;
     } catch (err) {
-      throw new ConflictException('Categories could not be list');
+      throw new NotFoundException(
+        err?.message ?? 'Categories could not be list',
+      );
     }
   }
 
@@ -41,7 +43,9 @@ export class CategoriesController {
         await this.categoriesService.getProductByCategoryID(categoryID);
       return categories;
     } catch (err) {
-      throw new ConflictException('Categories could not be list');
+      throw new NotFoundException(
+        err?.message ?? 'Categories could not be list',
+      );
     }
   }
 
@@ -52,7 +56,9 @@ export class CategoriesController {
       const categories = await this.categoriesService.create(dto);
       return categories;
     } catch (err) {
-      throw new ConflictException('Categories could not be created');
+      throw new NotFoundException(
+        err?.message ?? 'Categories could not be created',
+      );
     }
   }
 
@@ -63,7 +69,9 @@ export class CategoriesController {
       const categories = await this.categoriesService.update(dto);
       return categories;
     } catch (err) {
-      throw new ConflictException('Categories could not be created');
+      throw new NotFoundException(
+        err?.message ?? 'Categories could not be created',
+      );
     }
   }
 
@@ -74,7 +82,9 @@ export class CategoriesController {
       const categories = await this.categoriesService.delete(Number(id));
       return categories;
     } catch (err) {
-      throw new ConflictException('Categories could not be created');
+      throw new NotFoundException(
+        err?.message ?? 'Categories could not be created',
+      );
     }
   }
 }

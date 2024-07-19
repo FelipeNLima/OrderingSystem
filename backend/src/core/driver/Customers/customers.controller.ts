@@ -29,7 +29,7 @@ export class CustomersController {
       const customer = await this.customerService.getById(Number(id));
       return customer;
     } catch (err) {
-      throw new NotFoundException('Customer could not be list');
+      throw new NotFoundException(err?.message ?? 'Customer could not be list');
     }
   }
 
@@ -44,7 +44,7 @@ export class CustomersController {
       const customer = await this.customerService.getByCpf(String(cpf));
       return customer;
     } catch (err) {
-      throw new NotFoundException(err?.message || 'Customer could not be list');
+      throw new NotFoundException(err?.message ?? 'Customer could not be list');
     }
   }
 
@@ -55,7 +55,7 @@ export class CustomersController {
       return customer;
     } catch (err) {
       throw new NotFoundException(
-        err?.message || 'Customer could not be created',
+        err?.message ?? 'Customer could not be created',
       );
     }
   }
@@ -71,7 +71,9 @@ export class CustomersController {
       const customer = await this.customerService.update(dto);
       return customer;
     } catch (err) {
-      throw new NotFoundException('Customer could not be updated');
+      throw new NotFoundException(
+        err?.message ?? 'Customer could not be updated',
+      );
     }
   }
 
@@ -86,7 +88,9 @@ export class CustomersController {
       const customer = await this.customerService.delete(Number(id));
       return customer;
     } catch (err) {
-      throw new NotFoundException('Customer could not be deleted');
+      throw new NotFoundException(
+        err?.message ?? 'Customer could not be deleted',
+      );
     }
   }
 }

@@ -1,9 +1,9 @@
 import {
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -24,7 +24,7 @@ export class OrdersController {
       const order = await this.ordersService.getById(Number(id));
       return order;
     } catch (err) {
-      throw new ConflictException('Order could not be list');
+      throw new NotFoundException(err?.message ?? 'Order could not be list');
     }
   }
 
@@ -34,7 +34,7 @@ export class OrdersController {
       const order = await this.ordersService.getOrdersToday();
       return order;
     } catch (err) {
-      throw new ConflictException('Order could not be list');
+      throw new NotFoundException(err?.message ?? 'Order could not be list');
     }
   }
 
@@ -44,7 +44,7 @@ export class OrdersController {
       const order = await this.ordersService.create(dto);
       return order;
     } catch (err) {
-      throw new ConflictException('Order could not be created');
+      throw new NotFoundException(err?.message ?? 'Order could not be created');
     }
   }
 
@@ -54,7 +54,7 @@ export class OrdersController {
       const order = await this.ordersService.update(dto);
       return order;
     } catch (err) {
-      throw new ConflictException('Order could not be updated');
+      throw new NotFoundException(err?.message ?? 'Order could not be updated');
     }
   }
 
@@ -69,7 +69,7 @@ export class OrdersController {
       const products = await this.ordersService.delete(Number(id));
       return products;
     } catch (err) {
-      throw new ConflictException('Order could not be deleted');
+      throw new NotFoundException(err?.message ?? 'Order could not be deleted');
     }
   }
 }
