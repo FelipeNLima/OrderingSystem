@@ -1,7 +1,15 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { PaymentsService } from 'src/adapters/applications/services/payments.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
+import { PaymentsDto } from './dtos/payments.dto';
 
 @ApiTags('Pagamentos')
 @Controller('payments')
@@ -37,6 +45,16 @@ export class PaymentsController {
       return payments;
     } catch (err) {
       throw new NotFoundException(err?.message ?? 'Payments could not be list');
+    }
+  }
+
+  @Post()
+  async postPayments(@Body() dto: PaymentsDto) {
+    try {
+      const payment = await this.paymentsService.create(dto);
+      return payment;
+    } catch (err) {
+      throw new NotFoundException('Order payment be created');
     }
   }
 }
