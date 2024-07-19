@@ -29,7 +29,7 @@ export class ProductsController {
       const products = await this.productsService.getById(Number(id));
       return products;
     } catch (err) {
-      throw new ConflictException('Product could not be list');
+      throw new ConflictException(err?.message ?? 'Product could not be list');
     }
   }
 
@@ -44,7 +44,9 @@ export class ProductsController {
       const products = await this.productsService.create(dto);
       return products;
     } catch (err) {
-      throw new ConflictException('Product could not be created');
+      throw new ConflictException(
+        err?.message ?? 'Product could not be created',
+      );
     }
   }
 
@@ -59,7 +61,9 @@ export class ProductsController {
       const products = await this.productsService.update(dto);
       return products;
     } catch (err) {
-      throw new ConflictException('Product could not be updated');
+      throw new ConflictException(
+        err?.message ?? 'Product could not be updated',
+      );
     }
   }
 
@@ -74,7 +78,9 @@ export class ProductsController {
       const products = await this.productsService.delete(Number(id));
       return products;
     } catch (err) {
-      throw new ConflictException('Product could not be deleted');
+      throw new ConflictException(
+        err?.message ?? 'Product could not be deleted',
+      );
     }
   }
 }
