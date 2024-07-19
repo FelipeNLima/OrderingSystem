@@ -4,3 +4,16 @@
 
 GET http://localhost:3000/payments/1
 Content-Type: application/json
+
+# POST
+# Criar pedido
+###
+
+POST http://localhost:3000/payments
+Content-Type: application/json
+
+{   "id": "123",
+    "salesOrderID": "123554",
+    "qrCode": "qrCode"
+    "status": true
+}

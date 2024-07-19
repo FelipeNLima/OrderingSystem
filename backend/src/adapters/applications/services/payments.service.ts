@@ -12,4 +12,7 @@ export class PaymentsService {
   async getPaymentsByOrderId(orderID: number): Promise<Payments | null> {
     return this.paymentsRepository.getPaymentsByOrderId(orderID);
   }
+  async create(payment: Payments): Promise<Payments> {
+    return this.paymentsRepository.savePayment(payment);
+  }
 }
