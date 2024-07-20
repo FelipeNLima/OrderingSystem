@@ -14,11 +14,11 @@ spec:
       labels:
         app: ordersystem-deployment
     spec:
-      containers:  
+      containers:
         - name: order-system-api-container
-          image: viictorivo/teste2:latest
+          image: felipelima94/order-system-api:v6
           ports:
-          - containerPort: 3000
+            - containerPort: 3000
           envFrom:
-          - configMapRef:
-              name: api-configmap
+            - configMapRef:
+                name: api-configmap
