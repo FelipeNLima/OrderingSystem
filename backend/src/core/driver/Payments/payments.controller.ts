@@ -1,4 +1,12 @@
-import { ConflictException, Controller, Get, Param, Patch, Body } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
+
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { PaymentsService } from 'src/adapters/applications/services/payments.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
@@ -20,7 +28,7 @@ export class PaymentsController {
       const payments = await this.paymentsService.getById(Number(id));
       return payments;
     } catch (err) {
-      throw new ConflictException('Payments could not be list');
+      throw new NotFoundException(err?.message ?? 'Payments could not be list');
     }
   }
 
@@ -37,7 +45,7 @@ export class PaymentsController {
       );
       return payments;
     } catch (err) {
-      throw new ConflictException('Payments could not be list');
+      throw new NotFoundException(err?.message ?? 'Payments could not be list');
     }
   }
 
@@ -48,7 +56,7 @@ export class PaymentsController {
       console.log("dto", dto)
       return payment;
     } catch (err) {
-      throw new ConflictException('Order payment be created');
+      throw new NotFoundException('Order payment be created');
     }
   }
 }

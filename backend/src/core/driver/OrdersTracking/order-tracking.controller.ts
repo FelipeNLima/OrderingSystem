@@ -1,9 +1,9 @@
 import {
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
 } from '@nestjs/common';
@@ -28,7 +28,9 @@ export class OrdersTrackingController {
       const tracking = await this.ordersTrackingService.getAll();
       return tracking;
     } catch (err) {
-      throw new ConflictException('Order Tracking could not be list');
+      throw new NotFoundException(
+        err?.message ?? 'Order Tracking could not be list',
+      );
     }
   }
 
@@ -43,7 +45,9 @@ export class OrdersTrackingController {
       const tracking = await this.ordersTrackingService.getById(Number(id));
       return tracking;
     } catch (err) {
-      throw new ConflictException('Order Tracking could not be list');
+      throw new NotFoundException(
+        err?.message ?? 'Order Tracking could not be list',
+      );
     }
   }
 
@@ -58,7 +62,9 @@ export class OrdersTrackingController {
       const tracking = await this.ordersTrackingService.update(dto);
       return tracking;
     } catch (err) {
-      throw new ConflictException('Order Tracking could not be updated');
+      throw new NotFoundException(
+        err?.message ?? 'Order Tracking could not be updated',
+      );
     }
   }
 
@@ -73,7 +79,9 @@ export class OrdersTrackingController {
       const tracking = await this.ordersTrackingService.delete(Number(id));
       return tracking;
     } catch (err) {
-      throw new ConflictException('Order Tracking could not be deleted');
+      throw new NotFoundException(
+        err?.message ?? 'Order Tracking could not be deleted',
+      );
     }
   }
 }

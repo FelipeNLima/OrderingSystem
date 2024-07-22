@@ -5,10 +5,10 @@ metadata:
     app: api-svc
   name: svc-ordersystem-api
 spec:
+  type: LoadBalancer
   ports:
     - port: 80
       protocol: TCP
       targetPort: 3000
   selector:
-    app: ordersystem-nodeapi
-  type: LoadBalancer
+    app: ordersystem-deployment
