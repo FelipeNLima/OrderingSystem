@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException,Injectable } from '@nestjs/common';
 import { PrismaService } from '../applications/apis/prisma.service';
 import { PaymentsRepository } from '../applications/ports/paymentsRepository';
 import { Payments } from '../domain/payments';
@@ -27,14 +27,19 @@ export class PaymentsAdapter implements PaymentsRepository {
     }
   }
 
-  async savePayment(payments: Payments ): Promise<Payments> {
+  async updatePayment(payments: Payments ): Promise<Payments>{
     try {
-      return await this.prisma.payments.create({
-        data: payments,
+      return await this.prisma.payments.update({
+        where: {
+          id: payments.id,
+        },
+        data: {
+          ...payments
+        }
       });
     } catch (error) {
       const message = error?.meta?.target || error?.meta?.details;
-      throw new Error(message);
+      throw new BadRequestException(message);
     }
   }
 }

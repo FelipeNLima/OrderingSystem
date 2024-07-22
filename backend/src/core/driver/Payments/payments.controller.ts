@@ -6,6 +6,7 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
+
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { PaymentsService } from 'src/adapters/applications/services/payments.service';
 import { Roles } from 'src/core/guard/decorators/roles.decorator';
@@ -48,10 +49,11 @@ export class PaymentsController {
     }
   }
 
-  @Post()
+  @Patch()
   async postPayments(@Body() dto: PaymentsDto) {
     try {
-      const payment = await this.paymentsService.create(dto);
+      const payment = await this.paymentsService.update(dto);
+      console.log("dto", dto)
       return payment;
     } catch (err) {
       throw new NotFoundException('Order payment be created');
