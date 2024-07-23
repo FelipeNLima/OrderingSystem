@@ -36,7 +36,7 @@ Deve ser possível acompanhar os pedidos em andamento e tempo de espera de cada 
 
 ## Link Video demonstração
 
-![Link Video demonstração](https://www.youtube.com/watch?v=zTSFxMMnUKk)
+[Link Video demonstração](https://www.youtube.com/watch?v=zTSFxMMnUKk)
 
 ## Arquitetura
 
