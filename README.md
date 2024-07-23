@@ -34,7 +34,12 @@ Os produtos dispostos para escolha do cliente serão gerenciados pelo estabeleci
 
 Deve ser possível acompanhar os pedidos em andamento e tempo de espera de cada pedido. As informações dispostas no sistema de pedidos precisarão ser gerenciadas pelo estabelecimento através de um painel administrativo.
 
+## Link Video demonstração
+
+![Link Video demonstração](https://www.youtube.com/watch?v=zTSFxMMnUKk)
+
 ## Arquitetura
+
 ![arquitetura](/arquitetura.png)
 
 Nosso serviço OrdemSystem vai estar em EKS dentro da nuvem da AWS, os CRUD's dos endpoints serão feitos em um RDS na nuvem tambem.
@@ -42,6 +47,7 @@ Nosso serviço OrdemSystem vai estar em EKS dentro da nuvem da AWS, os CRUD's do
 Teremos uma conexão com o mercado pago, para a realização do pagamento do pedido, onde no fluxo de inbound é feita a requisição para gerar um QRcode de pagamento, e no fluxo de outbound recebemos a confirmação do pagamento do pedido em nosso webhook.
 
 **Rodar Pod AWS**
+
 ```diff
 01. Criar um cluester EKS na conta AWS
 02. Criar um node
@@ -53,7 +59,9 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 07. Executar o comando kubectl apply -f api-deployment.yml
 08. Executar o portfoard da aplicação kubectl port-forward --address 0.0.0.0 api-deployment-76c6d54dcf-qrnjc 80:3000
 ```
+
 **Rodar Pod local**
+
 ```diff
 01. Startar o minikube local
 02. Ir até o diretório da pasta api-svc
@@ -62,28 +70,34 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
 05. Executar o comando kubectl apply -f api-deployment.yml
 06. Executar o portfoard da aplicação kubectl port-forward --address 0.0.0.0 api-deployment-76c6d54dcf-qrnjc 80:3000
 ```
+
 ## Intruções de uso
 
-* **01. Cadastro de usuário**
->POST/customers
+- **01. Cadastro de usuário**
 
-* **02. Cadastro das categorias**
->POST/categories 
+  > POST/customers
 
-* **03. Cadastro dos produtos**
-> POST/product
->
->Com as categorias dos produtos criada, chamar o endpoint de cadastro de produto, para cadastrar o produto com sua respectiva categoria.
+- **02. Cadastro das categorias**
 
-* **04. Realização do pedido**
-> POST/orders
->
-> Com as categorias e os produtos já cadastrados, chamar o endpoint de realização do pedido, para salvar o pedido feito.
+  > POST/categories
 
-* **05. Cadastro do pagamento**
-> POST/payments
->
-> Para receber a confirmação do pedido, vamos receber uma requisição no webhook
+- **03. Cadastro dos produtos**
+
+  > POST/product
+  >
+  > Com as categorias dos produtos criada, chamar o endpoint de cadastro de produto, para cadastrar o produto com sua respectiva categoria.
+
+- **04. Realização do pedido**
+
+  > POST/orders
+  >
+  > Com as categorias e os produtos já cadastrados, chamar o endpoint de realização do pedido, para salvar o pedido feito.
+
+- **05. Cadastro do pagamento**
+  > POST/payments
+  >
+  > Para receber a confirmação do pedido, vamos receber uma requisição no webhook
+
 ## Developers
 
 - Author - [Felipe José do Nascimento Lima](https://www.linkedin.com/in/felipe-lima-00bb62171/)
