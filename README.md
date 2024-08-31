@@ -97,6 +97,7 @@ Teremos uma conexão com o mercado pago, para a realização do pagamento do ped
   > POST/payments
   >
   > Para receber a confirmação do pedido, vamos receber uma requisição no webhook
+  > Para construção do webhook utilizamos uma funcionalidade do nest.js que é o Event Emitter, quando criado um pedido é acionado um evento para fazer a confirmação do pagamento.
 
 ## Developers
 
