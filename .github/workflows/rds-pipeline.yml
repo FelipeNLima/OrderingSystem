@@ -6,8 +6,8 @@ on:
       - dev
 
 permissions:
+  id-token: write
   contents: read
-  issues: write
 
 jobs:
   aws-deploy:
