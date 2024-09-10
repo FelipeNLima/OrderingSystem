@@ -24,14 +24,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - id: "auth"
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID || secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY || secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ inputs.AWS_SESSION_TOKEN || secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
@@ -56,4 +48,9 @@ jobs:
 
       - name: Terraform apply
         run: |
-          terraform apply
+          terraform apply -auto-approve
+        env:
+          aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID || secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY || secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ inputs.AWS_SESSION_TOKEN || secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
