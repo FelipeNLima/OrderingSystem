@@ -4,53 +4,50 @@ on:
   push:
     branches:
       - dev
-  workflow_call:
-    inputs:
-      AWS_ACCESS_KEY_ID: { required: true, type: string }
-      AWS_SECRET_ACCESS_KEY: { required: true, type: string }
-      AWS_SESSION_TOKEN: { required: true, type: string }
 
 permissions:
-  id-token: write
   contents: read
+  issues: write
 
 jobs:
-  aws-deploy:
+  gcp-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v3.0.0
         with:
           fetch-depth: 0
 
+      - id: "auth"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.9.5
+          terraform_version: 1.5.7
 
       - name: Terraform init and validate
         run: |
           terraform init
 
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate
-
       - name: Terraform plan
         run: |
           terraform plan
-        continue-on-error: true
 
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: laysauchoa
+          minimum-approvals: 1
+          issue-title: "Deploying v1.0.0 to prod"
+          issue-body: "Review the terraform plan, then approve or deny the deployment of v1.0.0 to prod."
+          exclude-workflow-initiator-as-approver: false
 
       - name: Terraform apply
         run: |
-          terraform apply -auto-approve
-        env:
-          aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID || secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY || secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ inputs.AWS_SESSION_TOKEN || secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
+          terraform apply
