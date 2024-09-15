@@ -10,8 +10,13 @@ permissions:
   contents: read
 
 jobs:
-  gcp-deploy:
+  deploy:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: infra/rds
+
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v3.0.0
@@ -24,7 +29,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
+          aws-region: ${{ var.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -39,15 +44,7 @@ jobs:
         run: |
           terraform plan
 
-      - uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: laysauchoa
-          minimum-approvals: 1
-          issue-title: "Deploying v1.0.0 to prod"
-          issue-body: "Review the terraform plan, then approve or deny the deployment of v1.0.0 to prod."
-          exclude-workflow-initiator-as-approver: false
-
       - name: Terraform apply
+        if: github.ref == 'refs/heads/dev'
         run: |
           terraform apply
