@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ProductsService } from 'src/Application/services/products.service';
-import { ProductsAdapter } from 'src/Domain/Adapters/products.adapter';
+import { ProductsService } from '../../Application/services/products.service';
+import { ProductsAdapter } from '../../Domain/Adapters/products.adapter';
 
-import { ProductsRepository } from 'src/Domain/Repositories/productsRepository';
-import { PrismaService } from 'src/Infrastructure/Apis/prisma.service';
+import { ProductsRepository } from '../../Domain/Repositories/productsRepository';
+import { PrismaService } from '../../Infrastructure/Apis/prisma.service';
 import { ProductsController } from './products.controller';
 
 @Module({

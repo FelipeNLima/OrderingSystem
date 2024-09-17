@@ -1,7 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { PaymentsService } from 'src/Application/services/payments.service';
-import { PaymentEvents, PaymentStatus } from 'src/Domain/Enums/paymentStatus';
+import { PaymentsService } from '../../../Application/services/payments.service';
+import {
+  PaymentEvents,
+  PaymentStatus,
+} from '../../../Domain/Enums/paymentStatus';
 import { ConfirmPaymentEvent } from '../confirmPaymentEvent';
 
 @Injectable()

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { PaymentsService } from 'src/Application/services/payments.service';
-import { PaymentsAdapter } from 'src/Domain/Adapters/payments.adapter';
-import { PaymentsRepository } from 'src/Domain/Repositories/paymentsRepository';
-import { PrismaService } from 'src/Infrastructure/Apis/prisma.service';
-import { ConfirmPaymentListener } from 'src/Infrastructure/Events/listeners/confirmPayment.listener';
+import { PaymentsService } from '../../Application/services/payments.service';
+import { PaymentsAdapter } from '../../Domain/Adapters/payments.adapter';
+import { PaymentsRepository } from '../../Domain/Repositories/paymentsRepository';
+import { PrismaService } from '../../Infrastructure/Apis/prisma.service';
+import { ConfirmPaymentListener } from '../../Infrastructure/Events/listeners/confirmPayment.listener';
 import { PaymentsController } from './payments.controller';
 
 @Module({

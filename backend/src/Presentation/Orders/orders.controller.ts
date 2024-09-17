@@ -9,8 +9,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { OrdersService } from 'src/Application/services/orders.service';
-import { Roles } from 'src/Infrastructure/Guard/decorators/roles.decorator';
+import { OrdersService } from '../../Application/services/orders.service';
+import { Roles } from '../../Infrastructure/Guard/decorators/roles.decorator';
 import { OrdersDto } from './dtos/orders.dto';
 
 @ApiTags('Pedido')

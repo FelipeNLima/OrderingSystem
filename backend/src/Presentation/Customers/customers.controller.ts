@@ -9,8 +9,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { CustomerService } from 'src/Application/services/customer.service';
-import { Roles } from 'src/Infrastructure/Guard/decorators/roles.decorator';
+import { CustomerService } from '../../Application/services/customer.service';
+import { Roles } from '../../Infrastructure/Guard/decorators/roles.decorator';
 import { CustomersDto } from './dtos/customers.dto';
 
 @ApiTags('Clientes')

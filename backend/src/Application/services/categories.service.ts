@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Categories } from 'src/Domain/Interfaces/categories';
-import { ProductsByCategory } from 'src/Domain/Interfaces/productsByCategory';
-import { CategoriesRepository } from 'src/Domain/Repositories/categoriesRepository';
+import { Categories } from '../../Domain/Interfaces/categories';
+import { ProductsByCategory } from '../../Domain/Interfaces/productsByCategory';
+import { CategoriesRepository } from '../../Domain/Repositories/categoriesRepository';
 
 @Injectable()
 export class CategoriesService {

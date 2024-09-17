@@ -8,8 +8,8 @@ import {
   Patch,
 } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { OrdersTrackingService } from 'src/Application/services/ordersTracking.service';
-import { Roles } from 'src/Infrastructure/Guard/decorators/roles.decorator';
+import { OrdersTrackingService } from '../../Application/services/ordersTracking.service';
+import { Roles } from '../../Infrastructure/Guard/decorators/roles.decorator';
 import { OrdersTrackingDto } from './dtos/order-tracking.dto';
 
 @ApiTags('Tracking do Pedido')

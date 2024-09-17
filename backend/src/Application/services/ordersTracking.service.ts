@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { OrdersTracking } from 'src/Domain/Interfaces/ordersTracking';
-import { OrdersTrackingRepository } from 'src/Domain/Repositories/ordersTrackingRepository';
+import { OrdersTracking } from '../../Domain/Interfaces/ordersTracking';
+import { OrdersTrackingRepository } from '../../Domain/Repositories/ordersTrackingRepository';
 
 @Injectable()
 export class OrdersTrackingService {
