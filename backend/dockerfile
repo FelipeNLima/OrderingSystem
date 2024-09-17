@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 COPY tsconfig.json ./
-COPY ./prisma ./prisma
+COPY ./prisma ./
 
 COPY . .
 
