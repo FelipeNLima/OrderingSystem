@@ -9,6 +9,8 @@ COPY ./backend/prisma ./prisma
 
 RUN yarn generate
 
+COPY /app/prisma ./prisma/
+
 COPY . .
 
 # Install app dependencies
