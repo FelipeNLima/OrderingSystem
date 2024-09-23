@@ -2,10 +2,10 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
-COPY tsconfig.json ./
-COPY ./backend/prisma ./prisma
+COPY ./backend/package.json ./backend
+COPY ./backend/yarn.lock ./backend
+COPY ./backend/tsconfig.json ./backend
+COPY ./backend/prisma ./backend/prisma
 
 COPY . .
 
