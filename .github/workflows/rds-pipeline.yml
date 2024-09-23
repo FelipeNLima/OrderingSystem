@@ -3,7 +3,7 @@ name: deploy with terraform, rds db aws
 on:
   push:
     branches:
-      - main
+      - dev
 
 permissions:
   id-token: write
