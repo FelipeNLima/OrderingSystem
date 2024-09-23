@@ -7,13 +7,13 @@ COPY ./backend/yarn.lock ./
 COPY ./backend/tsconfig.json ./
 COPY ./backend/prisma ./prisma
 
+# Install app dependencies
+RUN yarn
+# Generate prisma client, leave out if generating in `postinstall` script
 RUN yarn generate
-COPY ./backend/prisma ./prisma/
 
 COPY . .
 
-# Install app dependencies
-RUN yarn
 RUN yarn build
 
 FROM node:20-buster
@@ -24,12 +24,9 @@ ENV USERID="uri"
 ENV POSID="uri"
 ENV NODE_LOCAL_PORT="uri"
 
-COPY --from=builder /app/node_modules ./node_modules/
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/yarn.lock ./
-COPY --from=builder /app/dist ./dist/
-COPY --from=builder /app/tsconfig.json ./
-COPY --from=builder /app/prisma ./prisma/
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
