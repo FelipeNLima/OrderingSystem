@@ -5,13 +5,15 @@ WORKDIR /app
 COPY ./backend/package.json ./
 COPY ./backend/yarn.lock ./
 COPY ./backend/tsconfig.json ./
-COPY ./backend/prisma ./prisma
-
-COPY . .
 
 # Install app dependencies
 RUN yarn
-RUN yarn generate
+
+COPY . .
+
+RUN yarn prisma generate
+COPY ./backend/prisma ./prisma
+
 RUN yarn build
 
 FROM node:20-buster
@@ -22,12 +24,12 @@ ENV USERID="uri"
 ENV POSID="uri"
 ENV NODE_LOCAL_PORT="uri"
 
-COPY --from=builder /app/node_modules ./backend/node_modules/
-COPY --from=builder /app/package*.json ./backend/
-COPY --from=builder /app/yarn.lock ./backend/
-COPY --from=builder /app/dist ./backend/dist/
-COPY --from=builder /app/tsconfig.json ./backend/
-COPY --from=builder /app/prisma ./backend/prisma/
+COPY --from=builder /app/node_modules ./node_modules/
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/yarn.lock ./
+COPY --from=builder /app/dist ./dist/
+COPY --from=builder /app/tsconfig.json ./
+COPY --from=builder /app/prisma ./prisma/
 
 EXPOSE 3000
 
