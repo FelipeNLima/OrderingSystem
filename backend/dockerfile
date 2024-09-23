@@ -2,9 +2,9 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
-COPY ../package.json ./
-COPY ../yarn.lock ./
-COPY ../tsconfig.json ./
+COPY ./package.json ./
+COPY ./yarn.lock ./
+COPY ./tsconfig.json ./
 COPY ../prisma ./prisma
 
 COPY . .
@@ -31,23 +31,3 @@ COPY --from=builder /app/prisma ./prisma/
 EXPOSE 3000
 
 CMD [ "yarn", "start:migrate:prod" ]
-
-# FROM node:20-buster
-# # RUN apt-get update && \
-# #   apt-get install -y openssl
-
-# # Create app directory
-# WORKDIR /app
-
-# COPY package.json ./
-# COPY yarn.lock ./
-# COPY tsconfig.json ./
-# COPY ./prisma ./prisma
-
-# # Install app dependencies
-# RUN yarn
-# RUN yarn build
-
-# COPY . .
-
-# CMD [ "yarn", "start:migrate:prod" ]
