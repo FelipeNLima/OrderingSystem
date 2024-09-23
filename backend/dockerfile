@@ -8,7 +8,7 @@ COPY ./backend/tsconfig.json ./
 COPY ./backend/prisma ./prisma
 
 RUN yarn generate
-COPY ./prisma ./prisma/
+COPY ./backend/prisma ./prisma/
 
 COPY . .
 
