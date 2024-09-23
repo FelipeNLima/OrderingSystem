@@ -5,9 +5,8 @@ WORKDIR /app
 COPY ./backend/package.json ./
 COPY ./backend/yarn.lock ./
 COPY ./backend/tsconfig.json ./
-COPY . .
 
-RUN yarn generate
+RUN npx prisma generate
 COPY ./backend/prisma ./prisma
 
 COPY . .
