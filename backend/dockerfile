@@ -8,6 +8,7 @@ COPY ./backend/tsconfig.json ./
 COPY ./backend/prisma ./prisma
 
 # Install app dependencies
+RUN yarn generate
 RUN yarn
 
 COPY . .
