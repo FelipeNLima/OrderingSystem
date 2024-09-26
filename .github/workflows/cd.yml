@@ -44,9 +44,11 @@ jobs:
         with:
           context: .
           file: ./backend/dockerfile
-          platforms: linux/amd64, linux/arm64
-          tags: ${{steps.docker_meta.outputs.tags}}
-          labels: ${{steps.docker_meta.outputs.tags}}
+          platforms: linux/amd64
+          push: true
+          cache-from: type=registry,ref=${{ steps.docker_meta.outputs.tags }}
+          cache-to: type=inline
+          tags: ${{ steps.docker_meta.outputs.tags }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
