@@ -14,3 +14,9 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "rds_endpoint" {
+  description = "The URL for the RDS endpoint"
+  type        = string
+  sensitive   = true
+}

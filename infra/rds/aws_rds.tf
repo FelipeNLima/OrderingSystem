@@ -52,3 +52,7 @@ resource "aws_db_instance" "banco" {
       Name = "rdsDB"
     }
 }
+
+output "rds_endpoint" {
+  value = "${aws_db_instance.default.endpoint}"
+} 
