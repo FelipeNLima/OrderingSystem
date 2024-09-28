@@ -43,7 +43,6 @@ resource "aws_db_instance" "banco" {
     instance_class       = "db.t3.micro"
     username             = var.db_username
     password             = var.db_password
-    endpoint             = var.rds_endpoint
     parameter_group_name = "default.mysql8.0"
     skip_final_snapshot  = true
     publicly_accessible  = true
