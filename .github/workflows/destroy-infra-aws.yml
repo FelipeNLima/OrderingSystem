@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ../../infra/rds
+        working-directory: ../infra/rds
 
     steps:
       # We need this to work with our folders
