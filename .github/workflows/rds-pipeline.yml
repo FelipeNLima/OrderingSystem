@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ../infra/rds
+        working-directory: infra/rds
 
     steps:
       - name: Checkout Git Repository
