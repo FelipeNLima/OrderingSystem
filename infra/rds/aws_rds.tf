@@ -16,6 +16,15 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "aws_security_group" "selected" {
+  id = var.security_group_id
+}
+
+resource "aws_subnet" "subnet" {
+  vpc_id     = data.aws_security_group.selected.vpc_id
+  cidr_block = "0.0.0.0/0"
+}
+
 resource "aws_security_group" "banco_sg" {
     name        = "banco_sg"
     description = "Security Group for DB MySql"
