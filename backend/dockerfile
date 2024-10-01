@@ -1,22 +1,21 @@
-FROM node:20 AS builder
+FROM node:20 as builder
 
 WORKDIR /app
 
-COPY ./backend/package.json ./package.json
-COPY ./backend/yarn.lock ./yarn.lock
-COPY ./backend/tsconfig.json ./tsconfig.json
+COPY ./backend/package.json ./
+COPY ./backend/yarn.lock ./
+COPY ./backend/tsconfig.json ./
 COPY ./backend/prisma ./prisma
-
-# Install app dependencies
-RUN yarn
-# Generate prisma client, leave out if generating in `postinstall` script
-RUN yarn generate
 
 COPY . .
 
+# Install app dependencies
+RUN yarn
 RUN yarn build
 
-FROM node:20-buster
+FROM node:20 as runner 
+
+WORKDIR /app 
 
 ENV DATABASE_URL="uri"
 ENV TOKEN_MERCADO_PAGO="uri"
@@ -24,13 +23,16 @@ ENV USERID="uri"
 ENV POSID="uri"
 ENV NODE_LOCAL_PORT="uri"
 
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules ./node_modules/
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/yarn.lock ./
 COPY --from=builder /app/dist ./dist/
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/prisma ./prisma/
 
+RUN yarn generate
+RUN yarn migrate:deploy
+RUN yarn migrate:status
 
 EXPOSE 3000
 
