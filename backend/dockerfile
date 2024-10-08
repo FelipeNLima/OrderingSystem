@@ -2,10 +2,10 @@ FROM node:20 as builder
 
 WORKDIR /app
 
-COPY ./backend/package.json ./
-COPY ./backend/yarn.lock ./
-COPY ./backend/tsconfig.json ./
-COPY ./backend/prisma ../prisma
+COPY package.json ./
+COPY yarn.lock ./
+COPY tsconfig.json ./
+COPY ./prisma ./prisma
 
 COPY . .
 
@@ -31,9 +31,7 @@ COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/prisma ./prisma/
 
 RUN yarn generate
-RUN yarn migrate:deploy
-RUN yarn migrate:status
 
 EXPOSE 3000
 
-CMD [ "yarn", "start:migrate:prod" ]
+CMD ["yarn", "start:migrate:prod"]
