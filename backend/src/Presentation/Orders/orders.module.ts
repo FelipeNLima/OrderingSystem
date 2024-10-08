@@ -1,11 +1,11 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 
-import { OrdersService } from 'src/Application/services/orders.service';
-import { OrdersAdapter } from 'src/Domain/Adapters/orders.adapter';
-import { OrdersRepository } from 'src/Domain/Repositories/ordersRepository';
-import { PrismaService } from 'src/Infrastructure/Apis/prisma.service';
-import { QRCodeService } from 'src/Infrastructure/Apis/qrcode.service';
+import { OrdersService } from '../../Application/services/orders.service';
+import { OrdersAdapter } from '../../Domain/Adapters/orders.adapter';
+import { OrdersRepository } from '../../Domain/Repositories/ordersRepository';
+import { PrismaService } from '../../Infrastructure/Apis/prisma.service';
+import { QRCodeService } from '../../Infrastructure/Apis/qrcode.service';
 import { OrdersController } from './orders.controller';
 
 @Module({

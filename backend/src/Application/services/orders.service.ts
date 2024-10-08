@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AllOrdersToday, Orders } from 'src/Domain/Interfaces/orders';
-import { OrdersRepository } from 'src/Domain/Repositories/ordersRepository';
+import { AllOrdersToday, Orders } from '../../Domain/Interfaces/orders';
+import { OrdersRepository } from '../../Domain/Repositories/ordersRepository';
 
 @Injectable()
 export class OrdersService {

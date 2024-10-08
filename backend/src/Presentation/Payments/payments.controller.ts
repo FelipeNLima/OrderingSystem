@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { PaymentsService } from 'src/Application/services/payments.service';
-import { Roles } from 'src/Infrastructure/Guard/decorators/roles.decorator';
+import { PaymentsService } from '../../Application/services/payments.service';
+import { Roles } from '../../Infrastructure/Guard/decorators/roles.decorator';
 import { PaymentsDto } from './dtos/payments.dto';
 
 @ApiTags('Pagamentos')

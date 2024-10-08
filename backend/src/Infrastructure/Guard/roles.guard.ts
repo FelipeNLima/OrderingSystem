@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { CustomerService } from 'src/Application/services/customer.service';
+import { CustomerService } from '../../Application/services/customer.service';
 import { Roles } from './decorators/roles.decorator';
 
 @Injectable()

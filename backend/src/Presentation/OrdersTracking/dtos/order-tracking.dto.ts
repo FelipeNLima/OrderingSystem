@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Status } from 'src/Domain/Enums/status';
+import { Status } from '../../../Domain/Enums/status';
 
 export class OrdersTrackingDto {
   @IsOptional()

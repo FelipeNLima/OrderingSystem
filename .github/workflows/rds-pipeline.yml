@@ -40,6 +40,10 @@ jobs:
         run: |
           terraform init
 
+      - name: Terraform import
+        run: |
+          terraform import aws_security_group.banco_sg_security_group sg-
+
       - name: Terraform plan
         env:
           DB_USER: ${{ secrets.DB_USER }}

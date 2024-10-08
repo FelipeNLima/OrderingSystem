@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/Infrastructure/Apis/prisma.service';
+import { AwsCognitoService } from 'src/Infrastructure/Apis/cognito.service';
+import { PrismaService } from '../../Infrastructure/Apis/prisma.service';
 import { Customers } from '../Interfaces/customer';
 import { CustomersRepository } from '../Repositories/customersRepository';
 import { removeMaskCpf } from '../Utils/removeMaskCpf';
 
 @Injectable()
 export class CustomersAdapter implements CustomersRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cognito: AwsCognitoService,
+  ) {}
 
   async getCustomerById(id: number): Promise<Customers | null> {
     try {
@@ -64,7 +68,14 @@ export class CustomersAdapter implements CustomersRepository {
         customerData = { ...customerData, cpf: newCpf };
       }
 
-      return await this.prisma.customer.create({ data: customerData });
+      const response = await this.prisma.customer.create({
+        data: customerData,
+      });
+
+      // SAVE USER IN COGNITO
+      await this.cognito.saveCognitoUser(customerData);
+
+      return response;
     } catch (error) {
       const message =
         error?.message || error?.meta?.target || error?.meta?.details;
